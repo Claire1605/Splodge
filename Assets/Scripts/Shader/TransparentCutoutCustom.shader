@@ -3,6 +3,8 @@
 		_MainTex("Base (RGB) Trans (A)", 2D) = "white" {}
 		_Cutoff("Alpha cutoff", Range(0,1)) = 0.5
 	    _Color("Tint", Color) = (1,1,1,1)
+		_EmissionMap("Emission Map", 2D) = "black" {}
+		[HDR] _EmissionColor("Emission Color", Color) = (0,0,0)
 	}
 		SubShader{
 			Tags {"Queue" = "AlphaTest" "IgnoreProjector" = "True" "RenderType" = "TransparentCutout"}
@@ -37,6 +39,8 @@
 					float4 _MainTex_ST;
 					fixed _Cutoff;
 					float4 _Color;
+					uniform sampler2D _EmissionMap;
+					float4 _EmissionColor;
 
 					v2f vert(appdata_t v)
 					{
@@ -56,11 +60,13 @@
 						UNITY_APPLY_FOG(i.fogCoord, col);
 
 						float edgeHeight = 0.015;
-						return lerp(
+						col = lerp(
 							col,
 							fixed4(0, 4, 2, 1),
 							step(col.a, _Cutoff + edgeHeight)
 						) * _Color;
+
+						return col + tex2D(_EmissionMap, i.texcoord) * _EmissionColor;
 					}
 				ENDCG
 			}

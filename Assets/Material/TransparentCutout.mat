@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: TransparentCutout
   m_Shader: {fileID: 4800000, guid: a84cf64dde8d0b642afd213fb49cd463, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA _ALPHATEST_ON
   m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -40,11 +40,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 6, y: 3}
+        m_Texture: {fileID: 2800000, guid: 8388d51bfdeada442bab7aeb6f09ed52, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 99ba86385f65ff54ba5071824108495e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 869ac8d5ffbb8d04d84757214f5e0cdd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:

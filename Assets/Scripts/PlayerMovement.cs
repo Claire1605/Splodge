@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     private float v = 0;
     private Rigidbody rb;
 
+    public bool canMove = true;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();   
@@ -18,10 +20,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        h = Input.GetAxis("Horizontal");
-        v = Input.GetAxis("Vertical");
-        Debug.Log(h);
+        if (canMove)
+        {
+            h = Input.GetAxis("Horizontal");
+            v = Input.GetAxis("Vertical");
 
-        rb.velocity = new Vector3(h, 0, v) * speed;
+            rb.velocity = new Vector3(h, 0, v) * speed;
+        }
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerDetection : MonoBehaviour
 {
-    float emissionMax = 2.0f;
-    float emissionNormal = 0.0f;
+    public float emissionMax = 2.0f;
+    public float emissionNormal = 0.0f;
 
     public bool isWithinRangeOfCreature = false;
 
@@ -13,23 +13,33 @@ public class PlayerDetection : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         //Debug.Log(other.gameObject.name);
-        if (other.gameObject.GetComponent<Renderer>() && other.gameObject.GetComponent<Renderer>().material.HasProperty("_EmissionColor"))
+        if (other.gameObject.GetComponent<Repairable>())
         {
-            Material mat = other.gameObject.GetComponent<Renderer>().material;
-            mat.EnableKeyword("_EMISSION");
-            mat.SetColor("_EmissionColor", Color.white * emissionMax);
+            if (other.gameObject.GetComponent<Repairable>().emissionPossible)
+            {
+                Material mat = other.gameObject.GetComponent<Renderer>().material;
+                mat.EnableKeyword("_EMISSION");
+                mat.SetColor("_EmissionColor", Color.white * emissionMax);
+            }
+          
             isWithinRangeOfCreature = true;
+            other.gameObject.GetComponent<Repairable>().EnterRange();
         }
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent<Renderer>() && other.gameObject.GetComponent<Renderer>().material.HasProperty("_EmissionColor"))
+        if (other.gameObject.GetComponent<Repairable>())
         {
-            Material mat = other.gameObject.GetComponent<Renderer>().material;
-            mat.EnableKeyword("_EMISSION");
-            mat.SetColor("_EmissionColor", Color.white * emissionNormal);
+            if (other.gameObject.GetComponent<Repairable>().emissionPossible)
+            {
+                Material mat = other.gameObject.GetComponent<Renderer>().material;
+                mat.EnableKeyword("_EMISSION");
+                mat.SetColor("_EmissionColor", Color.white * emissionNormal);
+            }
+                
             isWithinRangeOfCreature = false;
+            other.gameObject.GetComponent<Repairable>().ExitRange();
         }
     }
 }

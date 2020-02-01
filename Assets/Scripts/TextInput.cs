@@ -9,49 +9,83 @@ public class TextInput : MonoBehaviour
     public Sprite empty;
     public List<Image> letters = new List<Image>();
     private int numberOfLettersGuessed = 0;
+    private string guess = "";
 
     private char character;
 
+    public GameObject bottomBar;
+    public GameObject topBar;
+    bool showing = false;
+
+    private void Start()
+    {
+        bottomBar.SetActive(false);
+        topBar.SetActive(false);
+    }
+
     void Update()
     {
-        if (Input.anyKeyDown)
+        if (showing)
         {
-            for (int i = 97; i < 123; i++)
+            if (Input.anyKeyDown)
             {
-                if (Input.GetKeyDown((KeyCode)i)) //which keycode it is
+                for (int i = 97; i < 123; i++)
                 {
-                    character = (char)i;
-
-                    for (int j = 0; j < letters.Count; j++)
+                    if (Input.GetKeyDown((KeyCode)i)) //which keycode it is
                     {
-                        if (letters[j].sprite == empty)
+                        character = (char)i;
+                        guess += character;
+
+                        for (int j = 0; j < letters.Count; j++)
                         {
-                            letters[j].sprite = alphabetReference.characterToClay(character);
-                            numberOfLettersGuessed = j;
-                            break;
+                            if (letters[j].sprite == empty)
+                            {
+                                letters[j].sprite = alphabetReference.characterToClay(character);
+                                numberOfLettersGuessed = j;
+                                break;
+                            }
                         }
                     }
                 }
             }
-        }
 
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            for (int i = 0; i < letters.Count; i++)
+            if (Input.GetKeyDown(KeyCode.Backspace))
             {
-                letters[i].sprite = empty;
+                letters[numberOfLettersGuessed].sprite = empty;
+
+                numberOfLettersGuessed -= 1;
+
+                if (numberOfLettersGuessed < 0)
+                    numberOfLettersGuessed = 0;
+
+                guess = guess.Substring(0, numberOfLettersGuessed);
             }
-            numberOfLettersGuessed = 0;
         }
-        
-        if (Input.GetKeyDown(KeyCode.Backspace))
+    }
+    
+    public string CurrentGuess()
+    {
+        return guess;
+    }
+
+    public void Show()
+    {
+        showing = true;
+        bottomBar.SetActive(true);
+        topBar.SetActive(true);
+
+        for (int i = 0; i < letters.Count; i++)
         {
-            letters[numberOfLettersGuessed].sprite = empty;
-
-            numberOfLettersGuessed -= 1;
-
-            if (numberOfLettersGuessed < 0)
-                numberOfLettersGuessed = 0;
+            letters[i].sprite = empty;
         }
+        numberOfLettersGuessed = 0;
+        guess = "";
+    }
+
+    public void Hide()
+    {
+        showing = false;
+        bottomBar.SetActive(false);
+        topBar.SetActive(false);
     }
 }
