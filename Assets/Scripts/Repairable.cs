@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class Repairable : MonoBehaviour
 {
-    bool inRange = false;
+    public bool inRange = false;
     bool repairing = false;
     bool repaired = false;
     public bool emissionPossible = true;

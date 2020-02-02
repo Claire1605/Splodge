@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FrameAnimation : MonoBehaviour
 {
@@ -12,7 +13,10 @@ public class FrameAnimation : MonoBehaviour
 
     void Start()
     {
-        mat = GetComponent<Renderer>().material;   
+        if (GetComponent<Renderer>())
+        {
+            mat = GetComponent<Renderer>().material;
+        }
     }
 
     void Update()
@@ -27,6 +31,7 @@ public class FrameAnimation : MonoBehaviour
             {
                 currentFrame = 0;
             }
+
             mat.SetTexture("_MainTex", frames[currentFrame]);
         }
     }

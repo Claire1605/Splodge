@@ -8,6 +8,7 @@ public class PlayerDetection : MonoBehaviour
     public float emissionNormal = 0.0f;
 
     public bool isWithinRangeOfCreature = false;
+    public GameObject spaceBar;
 
 
     public void OnTriggerEnter(Collider other)
@@ -23,6 +24,7 @@ public class PlayerDetection : MonoBehaviour
             }
           
             isWithinRangeOfCreature = true;
+            spaceBar.SetActive(true);
             other.gameObject.GetComponent<Repairable>().EnterRange();
         }
     }
@@ -37,7 +39,8 @@ public class PlayerDetection : MonoBehaviour
                 mat.EnableKeyword("_EMISSION");
                 mat.SetColor("_EmissionColor", Color.white * emissionNormal);
             }
-                
+
+            spaceBar.SetActive(false);
             isWithinRangeOfCreature = false;
             other.gameObject.GetComponent<Repairable>().ExitRange();
         }

@@ -15,12 +15,16 @@ public class TextInput : MonoBehaviour
 
     public GameObject bottomBar;
     public GameObject topBar;
+    public GameObject spaceBar;
+    public GameObject flashingCursor;
     bool showing = false;
 
     private void Start()
     {
         bottomBar.SetActive(false);
         topBar.SetActive(false);
+        spaceBar.SetActive(false);
+        flashingCursor.SetActive(false);
     }
 
     void Update()
@@ -42,6 +46,7 @@ public class TextInput : MonoBehaviour
                             {
                                 letters[j].sprite = alphabetReference.characterToClay(character);
                                 numberOfLettersGuessed = j;
+                                flashingCursor.SetActive(false);
                                 break;
                             }
                         }
@@ -58,6 +63,11 @@ public class TextInput : MonoBehaviour
                 if (numberOfLettersGuessed < 0)
                     numberOfLettersGuessed = 0;
 
+                if (numberOfLettersGuessed == 0)
+                {
+                    flashingCursor.SetActive(true);
+                }
+
                 guess = guess.Substring(0, numberOfLettersGuessed);
             }
         }
@@ -73,6 +83,8 @@ public class TextInput : MonoBehaviour
         showing = true;
         bottomBar.SetActive(true);
         topBar.SetActive(true);
+        spaceBar.SetActive(false);
+        flashingCursor.SetActive(true);
 
         for (int i = 0; i < letters.Count; i++)
         {
@@ -87,5 +99,7 @@ public class TextInput : MonoBehaviour
         showing = false;
         bottomBar.SetActive(false);
         topBar.SetActive(false);
+        spaceBar.SetActive(true);
+        flashingCursor.SetActive(false);
     }
 }
