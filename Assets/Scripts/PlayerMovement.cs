@@ -13,9 +13,20 @@ public class PlayerMovement : MonoBehaviour
 
     public bool canMove = true;
 
+    public Sprite down;
+    public Sprite left;
+    public Sprite up;
+    public Sprite right;
+    public Sprite downleft;
+    public Sprite upleft;
+    public Sprite upright;
+    public Sprite downright;
+
+    public SpriteRenderer spriteRenderer;
+
     void Start()
     {
-        rb = GetComponent<Rigidbody>();   
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -26,6 +37,63 @@ public class PlayerMovement : MonoBehaviour
             v = Input.GetAxis("Vertical");
 
             rb.velocity = new Vector3(h, 0, v) * speed;
+        }
+
+        if (spriteRenderer != null)
+        {
+            if (h > 0.0f && v > 0.0f)
+            {
+                spriteRenderer.sprite = upright;
+            }
+            else
+            {
+                if (h > 0.0f && v < 0.0f)
+                {
+                    spriteRenderer.sprite = downright;
+                }
+                else
+                {
+                    if (h < 0.0f && v < 0.0f)
+                    {
+                        spriteRenderer.sprite = downleft;
+                    }
+                    else
+                    {
+                        if (h < 0.0f && v > 0.0f)
+                        {
+                            spriteRenderer.sprite = upleft;
+                        }
+                        else
+                        {
+                            if (h > 0.0f)
+                            {
+                                spriteRenderer.sprite = right;
+                            }
+                            else
+                            {
+                                if (h < 0.0f)
+                                {
+                                    spriteRenderer.sprite = left;
+                                }
+                                else
+                                {
+                                    if (v < 0.0f)
+                                    {
+                                        spriteRenderer.sprite = down;
+                                    }
+                                    else
+                                    {
+                                        if (v > 0.0f)
+                                        {
+                                            spriteRenderer.sprite = up;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

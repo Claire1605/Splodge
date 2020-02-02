@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class Repairable : MonoBehaviour
 {
@@ -15,8 +16,14 @@ public class Repairable : MonoBehaviour
     private TextInput textInput;
 
     public UnityEvent successEvent;
+    public UnityEvent delayedSuccessEvent;
+    public float delayedSuccessDelay = 5.0f;
     public Animator[] successAnimators;
     public string successAnimationTrigger;
+
+    public int nextSceneBuildIndex;
+    public float loadSceneDelay = 5.0f;
+    private float loadSceneTimer = 0.0f;
     private PlayerMovement playerMovement;
 
     private void Start()
@@ -39,6 +46,15 @@ public class Repairable : MonoBehaviour
                 {
                     StartRepairing();
                 }
+            }
+        }
+        else
+        {
+            loadSceneTimer += Time.deltaTime;
+
+            if (loadSceneTimer > loadSceneDelay)
+            {
+                SceneManager.LoadScene(nextSceneBuildIndex);
             }
         }
     }
@@ -64,6 +80,14 @@ public class Repairable : MonoBehaviour
         playerMovement.canMove = false;
     }
 
+    public void DelayedSuccess()
+    {
+        if (delayedSuccessEvent != null)
+        {
+            delayedSuccessEvent.Invoke();
+        }
+    }
+
     public void TryToRepair()
     {
         repairing = false;
@@ -86,6 +110,11 @@ public class Repairable : MonoBehaviour
             if (successEvent != null)
             {
                 successEvent.Invoke();
+            }
+
+            if (delayedSuccessEvent != null)
+            {
+                Invoke("DelayedSuccess", delayedSuccessDelay);
             }
 
             foreach (Animator animator in successAnimators)
