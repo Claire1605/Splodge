@@ -9,7 +9,7 @@ public class TextInput : MonoBehaviour
     public Sprite empty;
     public List<Image> letters = new List<Image>();
     private int numberOfLettersGuessed = 0;
-    private string guess = "";
+    public string guess = "";
 
     private char character;
 
@@ -38,6 +38,7 @@ public class TextInput : MonoBehaviour
                     if (Input.GetKeyDown((KeyCode)i)) //which keycode it is
                     {
                         character = (char)i;
+
                         guess += character;
 
                         for (int j = 0; j < letters.Count; j++)

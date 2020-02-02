@@ -339,8 +339,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76797363}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -8.6, y: 2.25, z: -114.9}
-  m_LocalScale: {x: 2, y: 2.25, z: 2.25}
+  m_LocalPosition: {x: -12.75, y: 17.5, z: -114.2}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 487833333}
   m_Father: {fileID: 1536371230}
@@ -357,8 +357,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 8.948684
+  m_Center: {x: -1.4442317, y: -13.110977, z: -0.0000021775786}
 --- !u!95 &76797366
 Animator:
   serializedVersion: 3
@@ -417,7 +417,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4cf4376e217d31747a12c14cb0172ab3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1b4e3e02f0143b34b9602bd17bfc92fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -462,7 +462,8 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: The spinning has commenced!
+          m_StringArgument: The spinning has commenced! Thank you! This is the end
+            of the game...
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1165802881}
@@ -3452,6 +3453,7 @@ MonoBehaviour:
   - {fileID: 1416833497}
   - {fileID: 344940278}
   - {fileID: 507885603}
+  guess: 
   bottomBar: {fileID: 787750662}
   topBar: {fileID: 387855836}
   spaceBar: {fileID: 785287263}
